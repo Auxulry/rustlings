@@ -10,7 +10,7 @@
 fn main() {
     let data = "Rust is great!".to_string();
 
-    get_char(data);
+    get_char(data.clone());
 
     string_uppercase(&data);
 }
@@ -21,8 +21,6 @@ fn get_char(data: String) -> char {
 }
 
 // Should take ownership
-fn string_uppercase(mut data: &String) {
-    data = &data.to_uppercase();
-
-    println!("{}", data);
+fn string_uppercase(data: &String) {
+    println!("{}", data.to_uppercase());
 }
