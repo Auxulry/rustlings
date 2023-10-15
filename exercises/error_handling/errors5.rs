@@ -26,13 +26,15 @@
 
 use std::error;
 use std::fmt;
+use std::fmt::{Display, Formatter};
 use std::num::ParseIntError;
 
 // TODO: update the return type of `main()` to make this compile.
-fn main() -> Result<(), Box<dyn ???>> {
+fn main() -> Result<(), Box<dyn error::Error>> {
     let pretend_user_input = "42";
     let x: i64 = pretend_user_input.parse()?;
-    println!("output={:?}", PositiveNonzeroInteger::new(x)?);
+    let result = PositiveNonzeroInteger::new(x)?;
+    println!("output={:?}", result);
     Ok(())
 }
 
@@ -64,8 +66,7 @@ impl fmt::Display for CreationError {
             CreationError::Negative => "number is negative",
             CreationError::Zero => "number is zero",
         };
-        f.write_str(description)
+        write!(f, "{}", description)
     }
 }
-
 impl error::Error for CreationError {}
